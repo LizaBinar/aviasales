@@ -1,6 +1,6 @@
-import { ADD_FILTER, CHANGE_SORT, GET_SEARCH_ID, REMOVE_FILTER } from './tupes';
-import axios from 'axios';
-import { MAIN_ROOT, SEARCH_ID } from '../api/base';
+import { ADD_FILTER, CHANGE_SORT, GET_SEARCH_ID, REMOVE_FILTER } from "./tupes";
+import axios from "axios";
+import { MAIN_ROOT, SEARCH_ID } from "../api/base";
 
 export const add = (key) => {
   return { type: ADD_FILTER, keyFilter: key };

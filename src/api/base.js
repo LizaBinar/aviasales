@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const MAIN_ROOT = 'https://aviasales-test-api.kata.academy/';
-export const SEARCH_ID = 'search';
+export const MAIN_ROOT = "https://aviasales-test-api.kata.academy/";
+export const SEARCH_ID = "search";
 
 export const fetchSearchId = () => {
   return axios

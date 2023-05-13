@@ -1,9 +1,9 @@
-import Checkbox from 'react-custom-checkbox';
-import variables from './check-group.module.scss';
-import classes from './check-group.module.scss';
-import checkSvg from './check.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { add, remove } from '../../redux/actions';
+import Checkbox from "react-custom-checkbox";
+import variables from "./check-group.module.scss";
+import classes from "./check-group.module.scss";
+import checkSvg from "./check.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { add, remove } from "../../redux/actions";
 
 function checkFilterAll(obj) {
   const array = Object.values(obj);
@@ -33,12 +33,16 @@ const CheckGroup = () => {
     const copy = [...array];
     return copy.map(({ key, title, checked }) => {
       return (
-        <label key={key} className={classes['check-group__place']} onClick={onChangeCheckBox.bind(this, key, checked)}>
+        <label
+          key={key}
+          className={classes["check-group__place"]}
+          onClick={onChangeCheckBox.bind(this, key, checked)}
+        >
           <Checkbox
             borderColor={variables.colorBorder}
             checked={checked}
             disabled
-            className={classes['check-group__box']}
+            className={classes["check-group__box"]}
             icon={<img src={checkSvg} alt="check" />}
             size={20}
           />
@@ -66,22 +70,22 @@ const CheckGroup = () => {
 
   const ElementAll = () => {
     return (
-      <label key={'all'} className={classes['check-group__place']}>
+      <label key={"all"} className={classes["check-group__place"]}>
         <Checkbox
           borderColor={variables.colorBorder}
           onChange={onAllChange}
           checked={all()}
-          className={classes['check-group__box']}
+          className={classes["check-group__box"]}
           icon={<img src={checkSvg} alt="check" />}
           size={20}
         />
-        <p>{'Все'}</p>
+        <p>{"Все"}</p>
       </label>
     );
   };
 
   return (
-    <div className={classes['check-group']}>
+    <div className={classes["check-group"]}>
       <ElementAll />
       {elements()}
     </div>

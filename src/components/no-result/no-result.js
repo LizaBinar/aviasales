@@ -1,9 +1,9 @@
-import { Result } from 'antd';
-import classes from './no-result.module.scss';
+import { Result } from "antd";
+import classes from "./no-result.module.scss";
 
 const NoResults = () => {
   return (
-    <div className={classes['no-results-container']}>
+    <div className={classes["no-results-container"]}>
       <Result
         status="404"
         title="Рейсов, подходящих под заданные фильтры, не найдено"

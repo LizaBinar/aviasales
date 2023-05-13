@@ -1,19 +1,19 @@
-import { message } from 'antd';
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { message } from "antd";
+import { useEffect } from "react";
+import PropTypes from "prop-types";
 
-const key = 'updatable';
+const key = "updatable";
 
 const loading = {
   key,
-  type: 'loading',
-  content: 'Ищу билеты...',
-  duration: 2,
+  type: "loading",
+  content: "Ищу билеты...",
+  duration: 35,
 };
 
 const success = {
   key,
-  type: 'success',
+  type: "success",
   duration: 2,
 };
 
@@ -34,7 +34,7 @@ const LoadingMessage = ({ searchStop, count }) => {
 
   useEffect(() => {
     openMessage();
-  });
+  }, [searchStop]);
 
   return <>{contextHolder}</>;
 };

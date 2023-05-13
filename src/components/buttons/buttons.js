@@ -1,22 +1,22 @@
-import classes from './buttons.module.scss';
-import variables from './buttons.module.scss';
+import classes from "./buttons.module.scss";
+import variables from "./buttons.module.scss";
 
-import { ConfigProvider, Radio } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeSort } from '../../redux/actions';
+import { ConfigProvider, Radio } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { changeSort } from "../../redux/actions";
 
 const options = [
   {
     label: <p className={classes.button}>Самый дешевый</p>,
-    value: 'cheapest',
+    value: "cheapest",
   },
   {
     label: <p className={classes.button}>Самый быстрый</p>,
-    value: 'fastest',
+    value: "fastest",
   },
   {
     label: <p className={classes.button}>Оптимальный</p>,
-    value: 'optimal',
+    value: "optimal",
   },
 ];
 
@@ -44,12 +44,12 @@ const Buttons = () => {
     >
       <Radio.Group
         className={classes.buttons}
-        size={'large'}
+        size={"large"}
         options={options}
         onChange={onChange}
         value={sort}
         optionType="button"
-        buttonStyle={'solid'}
+        buttonStyle={"solid"}
       />
     </ConfigProvider>
   );

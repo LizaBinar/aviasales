@@ -1,5 +1,5 @@
-import classes from './filter.module.scss';
-import CheckGroup from '../check-group/check-group';
+import classes from "./filter.module.scss";
+import CheckGroup from "../check-group/check-group";
 
 const Filter = () => {
   return (

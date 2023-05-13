@@ -1,12 +1,11 @@
-import logoSVG from "./logo.svg"
+import logoSVG from "./logo.svg";
 
 const Logo = () => {
+  return (
+    <a href="#">
+      <img src={logoSVG} alt={"logo"} />
+    </a>
+  );
+};
 
-    return (
-        <a href="#">
-            <img src={logoSVG} alt={"logo"}/>
-        </a>
-    )
-}
-
-export default Logo
+export default Logo;

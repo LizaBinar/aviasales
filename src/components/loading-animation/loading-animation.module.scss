@@ -3,21 +3,21 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-color: #003341; /* Замените на цвет фона */
+  background-color: #003341;
   overflow: hidden;
   border-radius: 5px;
 }
 
 .loading-animation-bar {
   width: 100%;
-  height: 100%; /* Высота полосы */
+  height: 100%;
   position: relative;
-  background-color: #ffffff; /* Замените на цвет полосы */
+  background-color: #ffffff;
   overflow: hidden;
 }
 
 .loading-animation-bar:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -28,8 +28,8 @@
     #ffffff,
     #b7d8e8,
     #ffffff
-  ); /* Замените на градиент, используя голубые и белые цвета */
-  opacity: 0.8; /* Прозрачность полосы */
+  );
+  opacity: 0.8;
   animation: loading-animation 1.5s infinite linear;
 }
 

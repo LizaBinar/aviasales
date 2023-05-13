@@ -1,13 +1,13 @@
-import classes from './ticket-list.module.scss';
+import classes from "./ticket-list.module.scss";
 
-import Ticket from '../ticket/ticket';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { performInitialSetup } from '../../redux/reducer';
-import BtnNext from '../btn-next/btn-next';
-import LoadingAnimation from '../loading-animation/loading-animation';
-import LoadingMessage from '../loading-message/loading-message';
-import NoResults from '../no-result/no-result';
+import Ticket from "../ticket/ticket";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { performInitialSetup } from "../../redux/reducer";
+import BtnNext from "../btn-next/btn-next";
+import LoadingAnimation from "../loading-animation/loading-animation";
+import LoadingMessage from "../loading-message/loading-message";
+import NoResults from "../no-result/no-result";
 
 const getCheckedKeys = (filters) => {
   return Object.keys(filters)
@@ -19,7 +19,7 @@ const generateLoaders = (countShow) => {
   const loaderArray = Array(countShow).fill(null);
 
   return loaderArray.map((_, index) => (
-    <li className={classes['loader-card']} key={index}>
+    <li className={classes["loader-card"]} key={index}>
       <LoadingAnimation />
     </li>
   ));
@@ -80,11 +80,11 @@ const sortByFastest = (a, b) => a.segments[0].duration - b.segments[0].duration;
 
 const sortTickets = (tickets, sort) => {
   switch (sort) {
-    case 'cheapest':
+    case "cheapest":
       return Object.values(tickets).sort(sortByCheapest);
-    case 'fastest':
+    case "fastest":
       return Object.values(tickets).sort(sortByFastest);
-    case 'optimal':
+    case "optimal":
       return Object.values(tickets).sort(sortByDurationAndPrice);
     default:
       return Object.values(tickets);
@@ -116,6 +116,7 @@ const TicketList = () => {
         <>
           {getLoaders(Object.values(tickets).length, countShow)}
           {generateTickets(newSortedTickets, countShow)}
+          <BtnNext onClick={() => setCountShow((countShow) => countShow + 5)} />
         </>
       );
     }
@@ -123,9 +124,11 @@ const TicketList = () => {
 
   return (
     <>
-      <LoadingMessage searchStop={searchStop} count={Object.values(tickets).length} />
-      <ul className={classes['ticket-list']}>{makeContent()}</ul>
-      <BtnNext onClick={() => setCountShow((countShow) => countShow + 5)} />
+      <LoadingMessage
+        searchStop={searchStop}
+        count={Object.values(tickets).length}
+      />
+      <ul className={classes["ticket-list"]}>{makeContent()}</ul>
     </>
   );
 };
