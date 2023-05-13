@@ -1,2 +1,2 @@
 # Deploy
-https://aviasales-gamma-one.vercel.app/
+https://aviasales-lizabinar.vercel.app/
