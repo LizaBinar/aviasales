@@ -17,7 +17,8 @@ export const fetchTickets = (searchId) => {
   return axios
     .get(url)
     .then((response) => response.data)
-    .catch(() => {
+    .catch((error) => {
+      console.log("fetchTickets error\n", error);
       return null;
     });
 };

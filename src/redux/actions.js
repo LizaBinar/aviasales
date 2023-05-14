@@ -30,7 +30,7 @@ const fetchTicketsAndUpdateState = (searchId) => {
         const res = await fetchTickets(searchId);
         processResponse(res);
       } catch (error) {
-        console.log(error);
+        console.log("makeRequest error\n", error);
       }
     };
 
