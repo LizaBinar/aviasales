@@ -1,4 +1,3 @@
-import { fetchSearchId, fetchTickets } from "../api/base";
 import {
   ADD_FILTER,
   GET_SEARCH_ID,
@@ -7,64 +6,7 @@ import {
   GET_TICKETS,
 } from "./tupes";
 import { nanoid } from "nanoid";
-
-const filters = {
-  0: { title: "Без пересадок", key: "0", checked: true },
-  1: { title: "1 пересадка", key: "1", checked: false },
-  2: { title: "2 пересадки", key: "2", checked: false },
-  3: { title: "3 пересадки", key: "3", checked: false },
-};
-
-const defaultState = {
-  filters: filters,
-  sort: "cheapest", // fastest optimal
-  searchId: false,
-  searchStop: false,
-  tickets: {},
-};
-
-export const performInitialSetup = () => {
-  return async (dispatch) => {
-    try {
-      const searchId = await fetchSearchId();
-      if (searchId) {
-        dispatch(fetchTicketsAndUpdateState(searchId));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-const fetchTicketsAndUpdateState = (searchId) => {
-  return async (dispatch) => {
-    let stop = false;
-
-    const processResponse = (res) => {
-      if (res && res.tickets) {
-        dispatch({
-          type: GET_TICKETS,
-          tickets: res.tickets,
-          searchStop: res.stop,
-        });
-        stop = res.stop;
-      }
-    };
-
-    const makeRequest = async () => {
-      try {
-        const res = await fetchTickets(searchId);
-        processResponse(res);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    while (!stop) {
-      await makeRequest();
-    }
-  };
-};
+import defaultState from "./default-state";
 
 const addFilter = (newState, keyFilter) => {
   newState.filters[keyFilter].checked = true;
@@ -94,8 +36,20 @@ const handleGetTickets = (newState, tickets, searchStop) => {
   return newState;
 };
 
+const handleGetSearchId = (newState, searchId) => {
+  return {
+    ...newState,
+    searchId: searchId,
+  };
+};
+
 const reducer = (state = defaultState, actions) => {
-  const { type, keyFilter, sortName, searchId, tickets, searchStop } = actions;
+  const { type } = actions;
+  let { payload } = actions;
+  if (payload === undefined) {
+    payload = {};
+  }
+  const { keyFilter, sortName, searchId, tickets, searchStop } = payload;
   const newState = structuredClone(state);
   switch (type) {
     case ADD_FILTER:
@@ -105,10 +59,7 @@ const reducer = (state = defaultState, actions) => {
     case CHANGE_SORT:
       return changeSort(newState, sortName);
     case GET_SEARCH_ID:
-      return {
-        ...newState,
-        searchId: searchId,
-      };
+      return handleGetSearchId(newState, searchId);
     case GET_TICKETS:
       return handleGetTickets(newState, tickets, searchStop);
     default:

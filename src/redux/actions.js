@@ -1,25 +1,54 @@
-import { ADD_FILTER, CHANGE_SORT, GET_SEARCH_ID, REMOVE_FILTER } from "./tupes";
-import axios from "axios";
-import { MAIN_ROOT, SEARCH_ID } from "../api/base";
+import { ADD_FILTER, CHANGE_SORT, GET_TICKETS, REMOVE_FILTER } from "./tupes";
+import { createAction } from "redux-actions";
+import { fetchSearchId, fetchTickets } from "../api/base";
 
-export const add = (key) => {
-  return { type: ADD_FILTER, keyFilter: key };
-};
+export const add = createAction(ADD_FILTER, (key) => ({ keyFilter: key }));
+export const remove = createAction(REMOVE_FILTER, (key) => ({
+  keyFilter: key,
+}));
+export const changeSort = createAction(CHANGE_SORT, (sortName) => ({
+  sortName,
+}));
+export const getTickets = createAction(GET_TICKETS, (tickets, searchStop) => ({
+  tickets: tickets,
+  searchStop: searchStop,
+}));
 
-export const remove = (key) => {
-  return { type: REMOVE_FILTER, keyFilter: key };
-};
-
-export const changeSort = (sortName) => {
-  return { type: CHANGE_SORT, sortName: sortName };
-};
-
-export const getSearchID = () => {
+const fetchTicketsAndUpdateState = (searchId) => {
   return async (dispatch) => {
-    const response = await axios(MAIN_ROOT + SEARCH_ID);
-    dispatch({
-      type: GET_SEARCH_ID,
-      searchId: response.data.searchId,
-    });
+    let stop = false;
+
+    const processResponse = (res) => {
+      if (res && res.tickets) {
+        dispatch(getTickets(res.tickets, res.stop));
+        stop = res.stop;
+      }
+    };
+
+    const makeRequest = async () => {
+      try {
+        const res = await fetchTickets(searchId);
+        processResponse(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    while (!stop) {
+      await makeRequest();
+    }
+  };
+};
+
+export const performInitialSetup = () => {
+  return async (dispatch) => {
+    try {
+      const searchId = await fetchSearchId();
+      if (searchId) {
+        dispatch(fetchTicketsAndUpdateState(searchId));
+      }
+    } catch (error) {
+      console.log("performInitialSetup error\n", error);
+    }
   };
 };

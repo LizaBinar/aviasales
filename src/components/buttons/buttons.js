@@ -20,6 +20,17 @@ const options = [
   },
 ];
 
+const theme = {
+  token: {
+    controlHeight: 41,
+    padding: 0,
+    colorBorder: variables.colorBorder,
+    colorPrimary: variables.colorPrimary,
+    colorPrimaryHover: variables.colorPrimaryHover,
+    borderRadius: 5,
+  },
+};
+
 const Buttons = () => {
   const dispath = useDispatch();
   const sort = useSelector((state) => state.sort);
@@ -30,18 +41,7 @@ const Buttons = () => {
   };
 
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          controlHeight: 41,
-          padding: 0,
-          colorBorder: variables.colorBorder,
-          colorPrimary: variables.colorPrimary,
-          colorPrimaryHover: variables.colorPrimaryHover,
-          borderRadius: 5,
-        },
-      }}
-    >
+    <ConfigProvider theme={theme}>
       <Radio.Group
         className={classes.buttons}
         size={"large"}

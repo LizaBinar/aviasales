@@ -3,7 +3,7 @@ import classes from "./ticket-list.module.scss";
 import Ticket from "../ticket/ticket";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { performInitialSetup } from "../../redux/reducer";
+import { performInitialSetup } from "../../redux/actions";
 import BtnNext from "../btn-next/btn-next";
 import LoadingAnimation from "../loading-animation/loading-animation";
 import LoadingMessage from "../loading-message/loading-message";
