@@ -1,14 +1,25 @@
-import { ADD_FILTER, CHANGE_SORT, GET_TICKETS, REMOVE_FILTER } from "./tupes";
+import {
+  ADD_FILTER,
+  CHANGE_SORT,
+  ERROR,
+  GET_TICKETS,
+  REMOVE_FILTER,
+} from "./tupes";
 import { createAction } from "redux-actions";
 import { fetchSearchId, fetchTickets } from "../api/base";
 
 export const add = createAction(ADD_FILTER, (key) => ({ keyFilter: key }));
+
+export const error = createAction(ERROR);
+
 export const remove = createAction(REMOVE_FILTER, (key) => ({
   keyFilter: key,
 }));
+
 export const changeSort = createAction(CHANGE_SORT, (sortName) => ({
   sortName,
 }));
+
 export const getTickets = createAction(GET_TICKETS, (tickets, searchStop) => ({
   tickets: tickets,
   searchStop: searchStop,
@@ -22,6 +33,9 @@ const fetchTicketsAndUpdateState = (searchId) => {
       if (res && res.tickets) {
         dispatch(getTickets(res.tickets, res.stop));
         stop = res.stop;
+      } else if (res === null) {
+        stop = true;
+        dispatch(error());
       }
     };
 

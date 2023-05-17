@@ -18,7 +18,10 @@ export const fetchTickets = (searchId) => {
     .get(url)
     .then((response) => response.data)
     .catch((error) => {
-      console.log("fetchTickets error\n", error);
-      return null;
+      if (error.code === "ERR_BAD_RESPONSE") {
+        return error.response.status;
+      } else {
+        return null;
+      }
     });
 };

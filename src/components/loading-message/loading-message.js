@@ -17,16 +17,34 @@ const success = {
   duration: 2,
 };
 
+const error = {
+  key,
+  type: "error",
+  content: "Все билеты улетели =(",
+  duration: 2,
+};
+
 const makeSuccess = (count) => {
   const obj = { ...success };
   obj.content = `Нашел ${count} билетов`;
   return obj;
 };
 
+const getObj = (searchStop, success) => {
+  switch (searchStop) {
+    case true:
+      return success;
+    case false:
+      return loading;
+    case "error":
+      return error;
+  }
+};
+
 const LoadingMessage = ({ searchStop, count }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const success = makeSuccess(count);
-  const obj = searchStop ? success : loading;
+  const obj = getObj(searchStop, success);
 
   const openMessage = () => {
     messageApi.open(obj);

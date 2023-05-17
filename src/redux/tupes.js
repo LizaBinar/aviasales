@@ -4,3 +4,5 @@ export const CHANGE_SORT = "CHANGE_SORT";
 export const GET_SEARCH_ID = "GET_SEARCH_ID";
 
 export const GET_TICKETS = "GET_TICKETS";
+
+export const ERROR = "ERROR";

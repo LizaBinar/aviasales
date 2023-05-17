@@ -4,6 +4,7 @@ import {
   REMOVE_FILTER,
   CHANGE_SORT,
   GET_TICKETS,
+  ERROR,
 } from "./tupes";
 import { nanoid } from "nanoid";
 import defaultState from "./default-state";
@@ -43,6 +44,11 @@ const handleGetSearchId = (newState, searchId) => {
   };
 };
 
+const handleError = (newState) => {
+  newState.searchStop = "error";
+  return newState;
+};
+
 const reducer = (state = defaultState, actions) => {
   const { type } = actions;
   let { payload } = actions;
@@ -62,6 +68,8 @@ const reducer = (state = defaultState, actions) => {
       return handleGetSearchId(newState, searchId);
     case GET_TICKETS:
       return handleGetTickets(newState, tickets, searchStop);
+    case ERROR:
+      return handleError(newState);
     default:
       return newState;
   }
